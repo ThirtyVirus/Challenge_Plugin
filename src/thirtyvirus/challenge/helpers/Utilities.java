@@ -4,14 +4,14 @@ import com.google.common.io.ByteStreams;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
-import thirtyvirus.multiversion.Sound;
-import thirtyvirus.multiversion.XMaterial;
+
 import thirtyvirus.challenge.ChallengePlugin;
 
 import java.io.File;
@@ -21,19 +21,6 @@ import java.io.OutputStream;
 import java.util.*;
 
 public final class Utilities {
-
-    // list of transparent blocks to be ignored when a player looks at a block
-    private static final Set<Material> TRANSPARENT = EnumSet.of(XMaterial.AIR.parseMaterial(), XMaterial.BLACK_CARPET.parseMaterial(), XMaterial.BLUE_CARPET.parseMaterial(),
-            XMaterial.BROWN_CARPET.parseMaterial(), XMaterial.CYAN_CARPET.parseMaterial(), XMaterial.GRAY_CARPET.parseMaterial(), XMaterial.GREEN_CARPET.parseMaterial(), XMaterial.LIGHT_BLUE_CARPET.parseMaterial(),
-            XMaterial.LIME_CARPET.parseMaterial(), XMaterial.MAGENTA_CARPET.parseMaterial(), XMaterial.ORANGE_CARPET.parseMaterial(), XMaterial.PINK_CARPET.parseMaterial(), XMaterial.PURPLE_CARPET.parseMaterial(),
-            XMaterial.RED_CARPET.parseMaterial(), XMaterial.WHITE_CARPET.parseMaterial(), XMaterial.YELLOW_CARPET.parseMaterial());
-
-    // list of all supported inventory blocks in the plugin
-    public static final List<Material> INVENTORY_BLOCKS = Arrays.asList(XMaterial.CHEST.parseMaterial(),XMaterial.TRAPPED_CHEST.parseMaterial(), XMaterial.ENDER_CHEST.parseMaterial(), XMaterial.SHULKER_BOX.parseMaterial(), XMaterial.BLACK_SHULKER_BOX.parseMaterial(),
-            XMaterial.BLUE_SHULKER_BOX.parseMaterial(), XMaterial.BROWN_SHULKER_BOX.parseMaterial(), XMaterial.CYAN_SHULKER_BOX.parseMaterial(), XMaterial.GRAY_SHULKER_BOX.parseMaterial(),
-            XMaterial.GREEN_SHULKER_BOX.parseMaterial(), XMaterial.LIGHT_BLUE_SHULKER_BOX.parseMaterial(), XMaterial.LIGHT_GRAY_SHULKER_BOX.parseMaterial(), XMaterial.LIME_SHULKER_BOX.parseMaterial(),
-            XMaterial.MAGENTA_SHULKER_BOX.parseMaterial(), XMaterial.ORANGE_SHULKER_BOX.parseMaterial(), XMaterial.PINK_SHULKER_BOX.parseMaterial(), XMaterial.PURPLE_SHULKER_BOX.parseMaterial(),
-            XMaterial.RED_SHULKER_BOX.parseMaterial(), XMaterial.WHITE_SHULKER_BOX.parseMaterial(), XMaterial.YELLOW_SHULKER_BOX.parseMaterial());
 
     private static Map<Player, Long> mostRecentSelect = new HashMap<>();
 
@@ -108,7 +95,7 @@ public final class Utilities {
         }
 
         for (String message : messages) {
-            sender.sendMessage(ChallengePlugin.prefix + ChatColor.RESET + ChatColor.RED + message);
+            sender.sendMessage("" + ChatColor.RESET + ChatColor.RED + message);
         }
     }
 
@@ -119,35 +106,30 @@ public final class Utilities {
         }
     }
 
-    // return the block the player is looking at, ignoring transparent blocks
-    public static Block getBlockLookingAt(Player player) {
-        return player.getTargetBlock(TRANSPARENT, 120);
-    }
-
     // play sound at player (version independent)
     public static void playSound(ActionSound sound, Player player) {
 
         switch (sound) {
             case OPEN:
-                Sound.CHEST_OPEN.playSound(player);
+                player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN,1,1);
                 break;
             case MODIFY:
-                Sound.ANVIL_USE.playSound(player);
+                player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_HIT,1,1);
                 break;
             case SELECT:
-                Sound.LEVEL_UP.playSound(player);
+                player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1,1);
                 break;
             case CLICK:
-                Sound.CLICK.playSound(player);
+                player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK,1,1);
                 break;
             case POP:
-                Sound.CHICKEN_EGG_POP.playSound(player);
+                player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP,1,1);
                 break;
             case BREAK:
-                Sound.ANVIL_LAND.playSound(player);
+                player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK,1,1);
                 break;
             case ERROR:
-                Sound.BAT_DEATH.playSound(player);
+                player.playSound(player.getLocation(), Sound.ENTITY_BAT_DEATH,1,1);
                 break;
         }
 

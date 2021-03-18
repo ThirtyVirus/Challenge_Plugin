@@ -16,7 +16,6 @@ public class BlockClick implements Listener {
 
     @EventHandler
     public void onBlockClick(PlayerInteractEvent event) {
-        Utilities.playSound(ActionSound.ERROR, event.getPlayer());
 
     }
 

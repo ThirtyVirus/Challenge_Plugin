@@ -20,7 +20,7 @@ public class MainPluginCommand implements CommandExecutor{
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         // verify that the user has proper permissions
-        if (!sender.hasPermission("template.user")) {
+        if (!sender.hasPermission("challenge.user")) {
             Utilities.warnPlayer(sender, Arrays.asList(main.getPhrase("no-permissions-message")));
             return true;
         }
@@ -42,7 +42,7 @@ public class MainPluginCommand implements CommandExecutor{
                 // put plugin specific commands here
 
                 case "reload":
-                    if (sender.hasPermission("template.admin")) reload(sender);
+                    if (sender.hasPermission("challenge.admin")) reload(sender);
                     else Utilities.warnPlayer(sender, Arrays.asList(main.getPhrase("no-permissions-message")));
                     break;
                 default:

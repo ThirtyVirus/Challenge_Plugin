@@ -2,8 +2,11 @@ package thirtyvirus.challenge;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import thirtyvirus.challenge.commands.MainPluginCommand;
 import thirtyvirus.challenge.events.block.BlockClick;
@@ -29,6 +32,7 @@ public class ChallengePlugin extends JavaPlugin {
 
     // customizable settings
     public static boolean customSetting = false;
+    public static boolean autoPurge = true;
 
     public void onEnable(){
         // load config.yml (generate one if not there)
@@ -45,14 +49,17 @@ public class ChallengePlugin extends JavaPlugin {
         getLogger().info(getDescription().getName() + " V: " + getDescription().getVersion() + " has been enabled");
 
         // example scheduled task
-        //if (autoPurge){
-        //    Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-        //        public void run() {
-        //            if (debug) Bukkit.getLogger().info("Automatically Purged " + Utilities.purge(shops, consolePrefix, debug, purgeAge) + " empty shops that haven't been active in the past " + purgeAge + " hour(s).");
-        //            if (!debug) Utilities.purge(shops, consolePrefix, debug, purgeAge);
-        //        }
-        //    }, 20 * 60 * 60, 20 * 60 * 60);
-        //}
+        if (autoPurge){
+            Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+                public void run() {
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        for (Material material : InventoryClick.FORBIDDEN_MATERIALS) {
+                            player.getInventory().remove(material);
+                        }
+                    }
+                }
+            }, 20, 20);
+        }
     }
 
     public void onDisable(){
