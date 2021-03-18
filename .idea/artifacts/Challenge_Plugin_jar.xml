@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Challenge_Plugin:jar">
+    <output-path>$PROJECT_DIR$/../../Test Server/plugins</output-path>
+    <root id="archive" name="ChallengePlugin.jar">
+      <element id="module-output" name="Challenge_Plugin" />
+      <element id="file-copy" path="$PROJECT_DIR$/config.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/language.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
+    </root>
+  </artifact>
+</component>

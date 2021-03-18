@@ -1,0 +1,15 @@
+# ChallengePlugin for Craftbukkit / Spigot
+# Author: Brandon (ThirtyVirus) Calabrese
+#
+# YouTube:      https://youtube.com/thirtyvirus
+# Twitter:      https://twitter.com/thirtyvirus
+# SpigotMC:     https://spigotmc.org/members/179587/
+
+# FILE: config.yml
+# These are the settings for ChallengePlugin. Change whatever you like but do not remove any
+# non-comment lines, as this will result in errors.
+
+plugin-prefix: "&c&l[&5&lChallengePlugin&c&l] &8&l"
+
+# Custom Setting
+custom-setting: false
